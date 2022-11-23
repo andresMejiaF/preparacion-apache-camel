@@ -49,6 +49,17 @@
       <version>${log4j2-version}</version>
       <scope>runtime</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jackson</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-main-junit5</artifactId>

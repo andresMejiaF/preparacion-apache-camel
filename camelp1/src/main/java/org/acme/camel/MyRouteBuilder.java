@@ -3,10 +3,19 @@ package org.acme.camel;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.JacksonDataFormat;
+import process.DataUser;
 import process.ProcessDataChangeProccesor;
+import process.ProcessDataResponseWSRest;
 import process.SetDataExchangeProcessor;
 
 public class MyRouteBuilder extends RouteBuilder {
+
+    private JacksonDataFormat jacksonDataFormat;
+
+    public MyRouteBuilder(){
+        jacksonDataFormat= new JacksonDataFormat(DataUser.class);
+    }
 
     @Override
     public void configure() throws Exception {
@@ -54,8 +63,9 @@ public class MyRouteBuilder extends RouteBuilder {
 */
         //Con clase alterna
         from("timer:simple?period=1000")
-                .process(new SetDataExchangeProcessor())
-                .to("direct:procesar")
+          //      .process(new SetDataExchangeProcessor())
+            //    .to("direct:procesar")
+                .to("direct:consumirWSRest")
                 .end();
         /* Normal
         from("direct:procesar")
@@ -93,6 +103,12 @@ public class MyRouteBuilder extends RouteBuilder {
                 .log("inicio procesamiento de mensaje")
                 .process(new ProcessDataChangeProccesor())
                 .end();
+
+        from("direct:consumirWSRest")
+                .setHeader(Exchange.HTTP_METHOD, constant("GET"))
+                .to("https://jsonplaceholder.typicode.com/users/1")
+                .unmarshal(jacksonDataFormat)
+                .process(new ProcessDataResponseWSRest()).end();
 
     }
 }
