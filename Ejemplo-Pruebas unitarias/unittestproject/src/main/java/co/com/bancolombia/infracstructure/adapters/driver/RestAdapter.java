@@ -102,7 +102,7 @@ public class RestAdapter extends RouteBuilder {
                 .endParam()
                 .route()
                 .unmarshal().json(PersonRequest.class)
-                .to("direct:savePersonByAge")
+                .to("direct:savePersonByAge") // redirige
                 .setHeader("CamelHttpResponseCode",constant("201"));
 
     }

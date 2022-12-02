@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 public class BuildLineProcessor implements Processor {
 
     @Override
-    public void process(Exchange exchange) throws Exception {
-        PersonRequest inbody = exchange.getIn().getBody(PersonRequest.class);
-        String outbody = inbody.getNombre() +" "+inbody.getEdad()+" "+inbody.getGenero();
-        exchange.getIn().setBody(outbody);
+    public void process(Exchange exchange) throws Exception { // processor del body de llegada
+        PersonRequest inbody = exchange.getIn().getBody(PersonRequest.class); // trae el objeto
+        String outbody = inbody.getNombre() +" "+inbody.getEdad()+" "+inbody.getGenero(); // en este sentido
+        exchange.getIn().setBody(outbody); // toma la salida
     }
 }

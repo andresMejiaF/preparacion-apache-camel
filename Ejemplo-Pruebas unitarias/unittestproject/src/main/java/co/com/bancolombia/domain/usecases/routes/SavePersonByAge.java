@@ -12,10 +12,10 @@ public class SavePersonByAge extends RouteBuilder{
 		from("direct:savePersonByAge").routeId("savePersonByAge")
 			.log("Im bussines logic")
 			.choice()
-				.when().simple("${body.edad} >= 18")
+				.when().simple("${body.edad} >= 18") // toma la edad del body y las evalua
 					.setHeader("CamelFileName",constant("mayores-de-edad.txt"))
 					.to("direct:SavePersonToFile").id("savePersonFileOlder")
-				.otherwise()
+				.otherwise() // sino cumple con el criterio
 					.setHeader("CamelFileName",constant("menores-de-edad.txt"))
 					.to("direct:SavePersonToFile").id("savePersonFileYounger")
 			.end();
