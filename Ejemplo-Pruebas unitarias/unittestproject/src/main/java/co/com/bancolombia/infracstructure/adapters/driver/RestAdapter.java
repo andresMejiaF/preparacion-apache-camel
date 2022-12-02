@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RestAdapter extends RouteBuilder {
+public class RestAdapter extends RouteBuilder { // COntrolador de la peticion rest
 
     @Autowired
     private RestProperties restProperties;
